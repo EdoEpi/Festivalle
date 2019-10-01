@@ -2,8 +2,7 @@
 
 # 1. The concept
 
-The goal of this project is to automate the control of the lighting of an architectural structure composed by LED stripes in a dynamic and smart way, during an electronic music show. 
-This is realized by a plug-in which analyzes the mixer-output audio signal in real-time and it communicates with a software which can handle the lights' animations thanks to the MIDI protocol.
+The goal of this project is the automated control of the dynamic lighting of an architectural structure composed by LED stripes: this is done by a plug-in which analyzes the mixer-output audio signal in real-time.
 
 # 2. Plugin Interface
 
@@ -15,14 +14,14 @@ The Plug-in is all made by using the C++ JUCE application framework.
 The Algorithm is based on few simples points:
 
 - Beat detection frame by frame from the signal and the BPM calculus from it;
-- Features extraction from the actual audio frame: audio panning, Audio Spectral Centroid (for audio "brightness" calculation) and velocity (as an indicator of the audio intensity);
+- Features extraction from the actual audio frame: audio panning, Audio Spectral Centroid (for audio "birghtness" calculation) and velocity (as an indicator of the audio intensity);
 - Once features are extracted, a MIDI message created by a set of rules related to those characteristics is sent, in order to activate 3*N possible light patterns, where N is the number of the available animations for each of the 3 sets of the brightness' value of the actual frame.
 
 ##  3.1 Beat Tracking algorithm
 
 The beat tracking algorithm is mainly based on a statistical model which use the energy content of the audio signal.
 
-The first choise to make for the analysis of the audio frame is the window: the one chosen here is a rectangular one 1024 samples large with 0% overlap, to avoid latency problems and because we do not care a specific frequency tracking. The sampling frequency that we are considering is 44100 Hz.
+The first choice to make for the analysis of the audio frame is the window: the one chosen here is a rectangular one 1024 samples large with 0% overlap, to avoid latency problems and because we do not care a specific frequency tracking. The sampling frequency that we are considering is 44100 Hz.
 
 <p align="center"> <img width="575" height="218" src="images/beattrack_0(1).png" > </p>
 
@@ -63,7 +62,9 @@ It is calculated considering the audio energy content in the low-frequency band 
 ![gif](images/velocity(2).gif) <br>
 
 # 5. Lights' animation 
+
 For the choice of a given set of light patterns, we need a bunch of rules which depend on the feature extracted. 
+
 ##  5.1 Rules for animations' choice
 
 Looking at the tree in the figure below, the path to follow is straightforward: <br>
